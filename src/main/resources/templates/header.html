@@ -15,21 +15,24 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Movie Rental System</a>
+          <a class="navbar-brand" th:href="@{/login}">Movie Rental System</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li th:if="${currentUser}" th:classappend="${module == 'home' ? 'active' : ''}">
-              <a href="#" th:href="@{/movies}">Movies</a>
+            <li th:if="${currentUser}" th:classappend="${#httpServletRequest.requestURI == '/movies' ? 'active' : ''}">
+              <a href="#" th:href="@{/movies}"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;Movies</a>
             </li>
-            <li th:if="${currentUser}" th:classappend="${module == 'tasks' ? 'active' : ''}">
-              <a href="#" th:href="@{/rentals}">Rentals</a>
+            <li th:if="${currentUser}" th:classappend="${#httpServletRequest.requestURI == '/rentals' ? 'active' : ''}">
+              <a href="#" th:href="@{/rentals}"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;My Rentals</a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-          	<li>Hello <span th:text="${currentUser} ? ${currentUser.name} : ''">User</span>
+          	<li th:if="${currentUser}">
+	          	<a href="#" th:href="@{#}">
+	          		<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Hello <span th:text="${currentUser.name}">User</span>
+	          	</a>
           	</li>
-            <li th:if="${1==2}">
+          	<li th:if="${1==2}">
               <a href="/signin" th:href="@{/signin}">
                 <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
               </a>

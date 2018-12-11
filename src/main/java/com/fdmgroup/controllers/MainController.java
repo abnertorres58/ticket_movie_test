@@ -27,9 +27,13 @@ public class MainController {
 	@Autowired
 	private UserRepository userRepository;
 	
-    @GetMapping("/login")
+    @GetMapping(value = {"/login","/"})
     public String greeting(Model model) {
-        model.addAttribute("name", "");
+    	// if the user is already logged in, we redirect him to movies
+    	if (this.currentUser!=null) {
+    		return "redirect:movies";
+    	}
+        
         return "login";
     }
     
