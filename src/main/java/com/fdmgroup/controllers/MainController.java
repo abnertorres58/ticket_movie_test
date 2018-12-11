@@ -29,13 +29,13 @@ public class MainController {
 	
     @GetMapping("/login")
     public String greeting(Model model) {
-        model.addAttribute("name", "Laura");
+        model.addAttribute("name", "");
         return "login";
     }
     
     @PostMapping("/login")
     public String loginPost(@RequestParam String email, @RequestParam String password, Model model) {
-        model.addAttribute("name", "Laura");
+        model.addAttribute("name", "");
     	List<User> users = userRepository.findByEmail(email);
     	
     	// if didnt found or password incorrect
@@ -50,6 +50,15 @@ public class MainController {
     	// check if
     	return "redirect:movies";
     }
+
+    @PostMapping("/logout")
+    public String logoutPost(Model model) {
+        model.addAttribute("name", "");
+        // save user in session
+    	this.setCurrentUser(null);
+        return "redirect:login";
+    }
+
     
     public User getCurrentUser() {
 		return currentUser;

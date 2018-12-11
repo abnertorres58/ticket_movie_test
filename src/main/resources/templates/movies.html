@@ -3,53 +3,26 @@
 <head> 
     <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-    <h1>Movies Page</h1>
-    
-    <!DOCTYPE html>
-<html>
-<head>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/rentals.css}"/>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<h2>HTML Table</h2>
+	<div th:replace="header :: header"></div>
+	
+	<form action="/rent" method="post">
+	<table>
+	  <tr>
+	    <th>Movie</th>
+	    <th>buy</th>
+	  </tr>
+	  <tr th:each="movie: ${allMovies}">
+	    <td th:text="${movie.title}">Batman</td>
+	    <td><button name="movie_id" type="submit" th:value="${movie.id}">Rent</button></td>
+	  </tr>
+	</table>
+	</form>
 
-Hello <p th:text="${currentUser.name}">User</p>
-
-<form action="/rent" method="post">
-<table>
-  <tr>
-    <th>Movie</th>
-    <th>buy</th>
-  </tr>
-  <tr th:each="movie: ${allMovies}">
-    <td th:text="${movie.title}">Batman</td>
-    <td><button name="movie_id" type="submit" th:value="${movie.id}">Buy</button></td>
-  </tr>
-</table>
-</form>
-
-</body>
-</html>
-    
-    
 </body>
 </html>

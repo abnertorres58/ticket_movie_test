@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Rental {
@@ -13,9 +15,13 @@ public class Rental {
 	
 	private Integer userId;
 	
-	private Integer movieId;
+//	private Integer movieId;
 	
 	private Boolean returned = false;
+	
+	@ManyToOne
+    @JoinColumn(name = "movieId")
+    private Movie movie;
 	
 	public Integer getId() {
 		return id;
@@ -33,12 +39,12 @@ public class Rental {
 		this.userId = userId;
 	}
 
-	public Integer getMovieId() {
-		return movieId;
+	public Movie getMovie() {
+		return movie;
 	}
 
-	public void setMovie_id(Integer movieId) {
-		this.movieId = movieId;
+	public void setMovie(Movie movie) {
+		this.movie = movie;
 	}
 
 	public Boolean getReturned() {

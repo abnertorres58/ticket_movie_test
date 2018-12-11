@@ -3,18 +3,23 @@
 <head> 
     <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/rentals.css}"/>
+
 </head>
 <body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
+
+	<div th:replace="header :: header"></div>
     
-    
-   <form action="/login" method="post">
-	  Email:<br>
-	  <input type="text" name="email"><br>
-	  Password:
-	  <input type="password" name="password"><br>
-	  <input type="submit" value="Submit"> 
-	</form>
+    <div class="login-form">
+	   <form action="/login" method="post" >
+		  Email:
+		  <input type="text" name="email"><br>
+		  Password:
+		  <input type="password" name="password"><br>
+		  <input type="submit" value="Submit"> 
+		</form>
+	</div>
 	
 	<p th:text="${error}" />
 

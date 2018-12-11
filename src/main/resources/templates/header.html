@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+		  src="https://code.jquery.com/jquery-3.3.1.min.js"
+		  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		  crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Movie Rental System</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li th:if="${currentUser}" th:classappend="${module == 'home' ? 'active' : ''}">
+              <a href="#" th:href="@{/movies}">Movies</a>
+            </li>
+            <li th:if="${currentUser}" th:classappend="${module == 'tasks' ? 'active' : ''}">
+              <a href="#" th:href="@{/rentals}">Rentals</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          	<li>Hello <span th:text="${currentUser} ? ${currentUser.name} : ''">User</span>
+          	</li>
+            <li th:if="${1==2}">
+              <a href="/signin" th:href="@{/signin}">
+                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
+              </a>
+            </li>
+            <li th:if="${currentUser}">
+              <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+              </a>
+             <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

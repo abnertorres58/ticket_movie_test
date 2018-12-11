@@ -21,8 +21,10 @@ public interface RentalRepository extends CrudRepository<Rental, Integer>{
 //                       @ColumnResult(name="birhDate")}))
 //	@Query(nativeQuery=true, value="select m.* from movie m join rental r on m.id=r.movie_id AND r.user_id = :userId")
 	// using JPQL
-	@Query("from Movie as m INNER JOIN Rental as r ON  m.id=r.movieId WHERE r.userId = :userId")
-	List<Movie> findMyRentals(@Param("userId") Integer userId);
+	//@Query("from Movie as m INNER JOIN Rental as r ON  m.id=r.movieId WHERE r.userId = :userId")
+//	List<Rental> findMyRentals(@Param("userId") Integer userId);
+	
+	List<Rental> findByUserId(@Param("userId") Integer userId);
 	
 //	@Modifying
 //    @Transactional
