@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <h1>Movies Page</h1>
+    <h1>Rentals Page</h1>
     
     <!DOCTYPE html>
 <html>
@@ -32,16 +32,16 @@ tr:nth-child(even) {
 
 <h2>HTML Table</h2>
 
-<form action="/rent" method="post">
+<form action="/return" method="post">
 <table>
   <tr>
     <th>Movie</th>
-    <th>buy</th>
+    <th>Return</th>
   </tr>
-  <tr th:each="movie: ${allMovies}">
+  <!-- <tr th:each="movie: ${allMovies}">
     <td th:text="${movie.title}">Batman</td>
     <td><button name="movie_id" type="submit" th:value="${movie.id}">Buy</button></td>
-  </tr>
+  </tr> -->
 </table>
 </form>
 
