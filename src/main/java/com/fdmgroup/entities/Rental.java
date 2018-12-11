@@ -11,9 +11,9 @@ public class Rental {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	private Integer user_id;
+	private Integer userId;
 	
-	private Integer movie_id;
+	private Integer movieId;
 	
 	private Boolean returned = false;
 	
@@ -25,20 +25,20 @@ public class Rental {
 		this.id = id;
 	}
 
-	public Integer getUser_id() {
-		return user_id;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public Integer getMovie_id() {
-		return movie_id;
+	public Integer getMovieId() {
+		return movieId;
 	}
 
-	public void setMovie_id(Integer movie_id) {
-		this.movie_id = movie_id;
+	public void setMovie_id(Integer movieId) {
+		this.movieId = movieId;
 	}
 
 	public Boolean getReturned() {

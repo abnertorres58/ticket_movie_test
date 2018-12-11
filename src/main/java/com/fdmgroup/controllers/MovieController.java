@@ -1,6 +1,7 @@
 package com.fdmgroup.controllers;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,29 +20,20 @@ import com.fdmgroup.repositories.RentalRepository;
 public class MovieController {
 	
 	@Autowired
+	private MainController mainController;
+	
+	@Autowired
 	private MovieRepository movieRepository;
 	
 	@Autowired
 	private RentalRepository rentalRepository;
-	
-//	@GetMapping(path="/add")
-//	public @ResponseBody String addNewMovie (@RequestParam String title) {
-//		
-//		Movie m = new Movie();
-//		m.setTitle(title);
-//		movieRepository.save(m);
-//		return "Saved";
-//	}
-//	
-//	@GetMapping(path="/all")
-//	public @ResponseBody Iterable<Movie> getAllùMovies(){
-//		return movieRepository.findAll();		
-//	}
+
 	
 	@GetMapping(path="/movies")
 	public String moviePost(Model model) {
 		Iterable<Movie> allMovies = movieRepository.findAll();
 		model.addAttribute("allMovies", allMovies);
+		model.addAttribute("currentUser", this.mainController.getCurrentUser());
 		return "movies";
 	}
 	
@@ -49,7 +41,7 @@ public class MovieController {
 	public String movieRent(@RequestParam int movie_id, Model model) {
 		Rental r = new Rental();
 		r.setMovie_id(movie_id);
-		r.setUser_id(1);
+		r.setUserId(this.mainController.getCurrentUser().getId());
 		rentalRepository.save(r);
 		
 		return "redirect:rentals";
@@ -57,8 +49,15 @@ public class MovieController {
 	
 	@GetMapping(path="/rentals")
 	public String movieRentals(Model model) {
-		Iterable<Movie> allMovies = movieRepository.findAll();
-		model.addAttribute("allMovies", allMovies);
-		return "movies";
+		List<Movie> myRendedMovies = rentalRepository.findMyRentals(this.mainController.getCurrentUser().getId());
+		model.addAttribute("allMovies", myRendedMovies);
+		return "rentals";
+	}
+	
+	@PostMapping(path="/return")
+	public String movieReturn(@RequestParam int movieId, Model model) {
+		rentalRepository.deleteByMovieIdAndUserId(movieId, this.mainController.getCurrentUser().getId());
+		return "redirect:rentals";
 	}
 }
+	

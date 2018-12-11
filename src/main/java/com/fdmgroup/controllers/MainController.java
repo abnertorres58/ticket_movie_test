@@ -10,13 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 
 import com.fdmgroup.entities.User;
 import com.fdmgroup.repositories.UserRepository;
 
 @Controller
 //RequestMapping(path="/")
+@SessionScope
 public class MainController {
+	
+
+	@Autowired(required = false)
+	User currentUser;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -37,11 +43,21 @@ public class MainController {
     		model.addAttribute("error", "Invalid Credentials");
     		return "login";
     	}
+    	
+    	// save user in session
+    	this.setCurrentUser(users.get(0));
+    	
     	// check if
     	return "redirect:movies";
     }
     
-    
+    public User getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+	}
 	
 
 }
